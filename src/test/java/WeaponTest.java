@@ -3,13 +3,14 @@ import com.company.Player;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Test;
 
-import java.util.Scanner;
+import java.sql.Time;
 
 public class WeaponTest {
-    Scanner scanner = new Scanner(System.in);
 
-    @org.junit.jupiter.api.Test
+
+    @Test
     public void testChoosePistol() {
 
         String expected = " Пиф! Паф!";
@@ -20,40 +21,59 @@ public class WeaponTest {
         Assertions.assertEquals(expected, actual, " Слот Пистолет работает некорректно ");
     }
 
-    @org.junit.jupiter.api.Test
+    @Test
     public void weaponChooseTest() {
+        int[] a = {0, 1, 2, 3};
+        for (int slot : a) {
 
-        int max = 4;
-        int slot = (int) (Math.random() * max);
-        System.out.println("Выбран слот " + slot);
-        Player player = new Player();
-        String expected = null;
-        String actual = null;
-        switch (slot) {
+            Player player = new Player();
+            System.out.println("Выбран слот " + slot);
+            String expected = null;
+            String actual = null;
+            switch (slot) {
 
-            case 0:
-                expected = "Pistol";
-                actual = player.getWeapon(slot).getName();
-                Assertions.assertEquals(expected, actual, " Выбор оружия работает некорректно ");
-                break;
-            case 1:
-                expected = "Rpg";
-                actual = player.getWeapon(slot).getName();
-                Assertions.assertEquals(expected, actual, " Выбор оружия работает некорректно ");
-                break;
-            case 2:
-                expected = "SnyperGun";
-                actual = player.getWeapon(slot).getName();
-                Assertions.assertEquals(expected, actual, " Выбор оружия работает некорректно ");
-
-            case 3:
-                expected = "MashinGun";
-                actual = player.getWeapon(slot).getName();
-                Assertions.assertEquals(expected, actual, " Выбор оружия работает некорректно ");
+                case 0:
+                    expected = "Pistol";
+                    actual = player.getWeapon(slot).getName();
+                    Assertions.assertEquals(expected, actual, " Выбор оружия работает некорректно ");
+                    break;
+                case 1:
+                    expected = "Rpg";
+                    actual = player.getWeapon(slot).getName();
+                    Assertions.assertEquals(expected, actual, " Выбор оружия работает некорректно ");
+                    break;
+                case 2:
+                    expected = "SnyperGun";
+                    actual = player.getWeapon(slot).getName();
+                    Assertions.assertEquals(expected, actual, " Выбор оружия работает некорректно ");
+                    break;
+                case 3:
+                    expected = "MashinGun";
+                    actual = player.getWeapon(slot).getName();
+                    Assertions.assertEquals(expected, actual, " Выбор оружия работает некорректно ");
+                    break;
+            }
+            System.out.println("expected : " + expected + "\n" +
+                    "actual : " + actual);
         }
-        System.out.println( "expected : " + expected + "\n" +
-                            "actual : " + actual);
     }
+
+    @Test
+    public void timeTest(){
+
+        Player player = new Player();
+        for (int i = 0; i < player.getSlotsCount(); i++){
+            long startTime = System.currentTimeMillis();
+            player.shotWithWeapon(i);
+            long endTime = System.currentTimeMillis();
+            long expected = 100;
+            long actual = endTime - startTime;
+            assert actual < expected : "Shooting time is too long!";
+        }
+    }
+
+
+
 
 
     @BeforeAll

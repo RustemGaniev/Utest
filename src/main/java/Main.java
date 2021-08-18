@@ -1,5 +1,3 @@
-package com.company;
-
 import com.company.Player;
 
 import java.util.Scanner;
